@@ -7,13 +7,14 @@ namespace Model {
         string Name;
         LinkedList<Section> Sections;
 
-        Track NextTrack(string name, SectionTypes[] Sections) {
-            return new Track();
-        }
-
         public Track() {
             Name = "";
             Sections = new LinkedList<Section>();
+        }
+
+        public Track(String name, LinkedList<Section> sections) {
+            Name = name;
+            Sections = sections;
         }
     }
 }
