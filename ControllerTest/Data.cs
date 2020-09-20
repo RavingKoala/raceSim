@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Model;
 
 namespace ControllerTest {
@@ -16,11 +15,14 @@ namespace ControllerTest {
 
         static void FillParticipants() {
             competition.Participants.Add(new Driver("steve", 0, 0, TeamColors.Blue));
+            competition.Participants.Add(new Driver("bob", 0, 0, TeamColors.Red));
         }
 
         static void AddTracks(){
-            
-            competition.Tracks.Enqueue(new Track());
+            LinkedList<Section> sections = new LinkedList<Section>();
+            sections.AddFirst(new Section(SectionTypes.Straight));
+            sections.AddFirst(new Section(SectionTypes.LeftCorner));
+            competition.Tracks.Enqueue(new Track("", sections));
         }
     }
 }
