@@ -12,14 +12,6 @@ namespace ControllerTest
         private Random _random;
         private Dictionary<Section, SectionData> _positions;
 
-        private Race(Track track, List<IParticipant> participants, DateTime startTime, Random random, Dictionary<Section, SectionData> positions) {
-            Track = track;
-            Participants = participants;
-            StartTime = startTime;
-            _random = random;
-            _positions = positions;
-        }
-
         public Race(Track track, List<IParticipant> participants) {
             Track = track;
             Participants = participants;
@@ -27,11 +19,11 @@ namespace ControllerTest
 
         }
 
-        public SectionData getSectionData(Section section) {
+        public SectionData GetSectionData(Section section) {
             return _positions[section];
         }
 
-        public void randomizeEquipment() {
+        public void RandomizeEquipment() {
             foreach (IParticipant participant in Participants) {
                 participant.Equiptment.Quality = _random.Next(10);
                 participant.Equiptment.Performance = _random.Next(10);

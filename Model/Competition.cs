@@ -8,7 +8,14 @@ namespace Model {
         public Queue<Track> Tracks;
 
         public Track NextTrack() {
-            return new Track();
+            Track returnValue;
+            try {
+                returnValue = Tracks.Peek();
+                Tracks.Dequeue();
+            } catch {
+                returnValue = null;
+            }
+            return returnValue;
         }
 
         public Competition() {

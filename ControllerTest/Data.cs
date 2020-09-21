@@ -3,26 +3,33 @@ using System.Collections.Generic;
 using Model;
 
 namespace ControllerTest {
-    static class Data {
-        static Competition competition;
+    public static class Data {
+        static Competition Competition;
+        static Race CurrentRace;
 
-        static void Initialize() {
-            competition = new Competition();
-            FillParticipants();
-            AddTracks();
-            Console.WriteLine("test");
+
+        public static void Initialize() {
+            SetupCompetition();
         }
 
-        static void FillParticipants() {
-            competition.Participants.Add(new Driver("steve", 0, 0, TeamColors.Blue));
-            competition.Participants.Add(new Driver("bob", 0, 0, TeamColors.Red));
-        }
+        private static void SetupCompetition() {
+            Competition = new Competition();
 
-        static void AddTracks(){
+            Competition.Participants.Add(new Driver("steve", 0, new Car(), TeamColors.Blue));
+            Competition.Participants.Add(new Driver("bob", 0, new Car(), TeamColors.Red));
+
             LinkedList<Section> sections = new LinkedList<Section>();
             sections.AddFirst(new Section(SectionTypes.Straight));
             sections.AddFirst(new Section(SectionTypes.LeftCorner));
-            competition.Tracks.Enqueue(new Track("", sections));
+            Competition.Tracks.Enqueue(new Track("Test", sections));
+        }
+        
+        public static void NextRace() {
+            Track nextTrack = Competition.NextTrack();
+            if ( nextTrack != null) {
+                Console.WriteLine(nextTrack.Name);
+                CurrentRace = new Race(nextTrack, Competition.Participants);
+            }
         }
     }
 }
