@@ -4,17 +4,20 @@ using System.Text;
 
 namespace Model {
     public class Track {
-        public string Name;
-        LinkedList<Section> Sections;
+        public string Name { get; set; }
+        public LinkedList<Section> Sections { get; set; }
 
-        public Track() {
-            Name = "";
-            Sections = new LinkedList<Section>();
+        public Track(string name, SectionTypes[] sections) {
+            Name = name;
+            Sections = ConvertSectionTypes(sections);
         }
 
-        public Track(String name, LinkedList<Section> sections) {
-            Name = name;
-            Sections = sections;
+        private LinkedList<Section> ConvertSectionTypes(SectionTypes[] sections) {
+            LinkedList<Section> returnValue = new LinkedList<Section>();
+            foreach (SectionTypes sectionTypes in sections) {
+                returnValue.AddLast(new Section(sectionTypes));
+            }
+            return returnValue;
         }
     }
 }

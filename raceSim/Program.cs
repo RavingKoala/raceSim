@@ -5,7 +5,7 @@ using ControllerTest;
 namespace raceSim {
     class Program {
         static void Main(string[] args) {
-            Data.Initialize();
+            Visuals.DrawTrack();
             Data.NextRace();
             for ( ; ; ){
                 Thread.Sleep(100);

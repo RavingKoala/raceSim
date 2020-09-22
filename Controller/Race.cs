@@ -5,12 +5,12 @@ using System.Text;
 
 namespace ControllerTest
 {
-    class Race {
-        Track Track;
-        List<IParticipant> Participants;
-        DateTime StartTime;
-        private Random _random;
-        private Dictionary<Section, SectionData> _positions;
+    public class Race {
+        public Track Track { get; }
+        public List<IParticipant> Participants { get; }
+        DateTime StartTime { get; }
+        private Random _random { get; }
+        private Dictionary<Section, SectionData> _positions { get; }
 
         public Race(Track track, List<IParticipant> participants) {
             Track = track;

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Model {
     public interface IEquipment {
-        int Quality { get; set; }
-        int Performance { get; set; }
-        int Speed { get; set; }
-        int IsBroken { get; set; }
+        public int Quality { get; set; }
+        public int Performance { get; set; }
+        public int Speed { get; set; }
+        public int IsBroken { get; set; }
     }
 }
 

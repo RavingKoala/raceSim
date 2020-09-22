@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Model {
-    public class Driver : IParticipant {
+    public class Snake : IParticipant {
         private string name;
-        public int points;
-        public IEquipment equiptment;
-        public TeamColors teamColor;
+        private int points;
+        private IEquipment equiptment;
+        private TeamColors teamColor;
         public string Name { get => name; set { name = value; } }
         public int Points { get => points; set { points = value; } }
         public IEquipment Equiptment { get => equiptment; set { equiptment = value; } }
         public TeamColors TeamColor { get => teamColor; set { teamColor = value; } }
 
-        public Driver(string name, int points, IEquipment equiptment, TeamColors teamColor) {
+        public Snake(string name, int points, IEquipment equiptment, TeamColors teamColor) {
             Name = name;
-            Points = 0;
+            Points = points;
             Equiptment = equiptment;
             TeamColor = teamColor;
         }
