@@ -7,20 +7,19 @@ namespace Model {
         public List<IParticipant> Participants { get; }
         public Queue<Track> Tracks { get; set; }
 
+        public Competition() {
+            Participants = new List<IParticipant>();
+            Tracks = new Queue<Track>();
+        }
+
         public Track NextTrack() {
             Track returnValue;
             try {
-                returnValue = Tracks.Peek();
-                Tracks.Dequeue();
+                returnValue = Tracks.Dequeue();
             } catch {
                 returnValue = null;
             }
             return returnValue;
-        }
-
-        public Competition() {
-            Participants = new List<IParticipant>();
-            Tracks = new Queue<Track>();
         }
     }
 }
