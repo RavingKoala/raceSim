@@ -8,6 +8,7 @@ using System.Text;
 
 namespace raceSim {
     public static class Visuals {
+		private static int startx, starty;
 		private static int x, y;
 		private static int direction;
 
@@ -22,11 +23,50 @@ namespace raceSim {
         private readonly static string[] _westToNorth = { "/  |", " 1 /", " 2/ ", "-/  " };
         #endregion
 
+		public static void Initialize(Track track) {
+			startx = 0; starty = 0;
+			PrepareDrawStartValue(track);
+		}
 
-        public static void DrawTrack(Track track) {
+		public static void PrepareDrawStartValue(Track track) {
 			x = 0;
 			y = 0;
-			direction = 0;
+			direction = 1;
+			foreach (Section section in track.Sections) {
+				// draw track by type
+				switch (section.SectionType) {
+					case SectionTypes.LeftCorner:
+						direction = direction == 0 ? 3 : direction - 1;
+						break;
+					case SectionTypes.RightCorner:
+						direction = (direction + 1) % 4;
+						break;
+					default:
+						break;
+				}
+				if (direction == 0) {
+					y -= 4;
+					if (y < starty) {
+						starty = y * -1;
+					}
+				}
+				if (direction == 1)
+					x += 4;
+				if (direction == 2)
+					y += 4;
+				if (direction == 3) {
+					x -= 4;
+					if (x < startx) {
+						startx = x * -1;
+					}
+				}
+			}
+		}
+
+		public static void DrawTrack(Track track) {
+			x = 0;
+			y = 0;
+			direction = 1;
 			foreach (Section section in track.Sections) {
 				SectionData sectionData = Data.CurrentRace.GetSectionData(section);
 				// setup players
@@ -42,40 +82,40 @@ namespace raceSim {
 				switch (section.SectionType) {
 					case SectionTypes.Straight:
 						if (direction == 0 || direction == 2) {
-							TrackToConsole(DrawParticipants(_vertical.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_vertical.ToArray(), participant1, participant2));
 						} else if (direction == 1 || direction == 3) {
-							TrackToConsole(DrawParticipants(_horizontal.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_horizontal.ToArray(), participant1, participant2));
 						}
 						break;
 					case SectionTypes.LeftCorner:
 						if (direction == 0) {
-							TrackToConsole(DrawParticipants(_southToWest.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_southToWest.ToArray(), participant1, participant2));
 						} else if (direction == 1) {
-							TrackToConsole(DrawParticipants(_westToNorth.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_westToNorth.ToArray(), participant1, participant2));
 						} else if (direction == 2) {
-							TrackToConsole(DrawParticipants(_northToEast.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_northToEast.ToArray(), participant1, participant2));
 						} else if (direction == 3) {
-							TrackToConsole(DrawParticipants(_eastToSouth.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_eastToSouth.ToArray(), participant1, participant2));
 						}
 						direction = direction == 0 ? 3 : direction - 1;
 						break;
 					case SectionTypes.RightCorner:
 						if (direction == 0) {
-							TrackToConsole(DrawParticipants(_eastToSouth.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_eastToSouth.ToArray(), participant1, participant2));
 						} else if (direction == 1) {
-							TrackToConsole(DrawParticipants(_southToWest.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_southToWest.ToArray(), participant1, participant2));
 						} else if (direction == 2) {
-							TrackToConsole(DrawParticipants(_westToNorth.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_westToNorth.ToArray(), participant1, participant2));
 						} else if (direction == 3) {
-							TrackToConsole(DrawParticipants(_northToEast.ToArray(), participant1, participant2));
+							trackToConsole(DrawParticipants(_northToEast.ToArray(), participant1, participant2));
 						}
 						direction = (direction + 1) % 4;
 						break;
 					case SectionTypes.StartGrid:
-							TrackToConsole(DrawParticipants(_horizontalStart.ToArray(), participant1, participant2));
+						trackToConsole(DrawParticipants(_horizontalStart.ToArray(), participant1, participant2));
 						break;
 					case SectionTypes.Finish:
-							TrackToConsole(DrawParticipants(_horizontalFinnish.ToArray(), participant1, participant2));
+						trackToConsole(DrawParticipants(_horizontalFinnish.ToArray(), participant1, participant2));
 						break;
 					default:
 						break;
@@ -91,10 +131,10 @@ namespace raceSim {
 			}
 		}
 
-		private static void TrackToConsole(string[] trackSection) {
+		private static void trackToConsole(string[] trackSection) {
 			for (int tempY = 0; tempY < trackSection.Length; tempY++) {
 				for (int tempX = 0; tempX < trackSection[tempY].Length; tempX++) {
-					Console.SetCursorPosition(x + tempX, y + tempY);
+					Console.SetCursorPosition(startx + x + tempX, starty + y + tempY);
 					Console.Write(trackSection[tempY][tempX]);
 				}
 			}

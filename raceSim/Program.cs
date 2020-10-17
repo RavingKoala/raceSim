@@ -9,6 +9,7 @@ namespace raceSim {
 			Data.Initialize();
 			Data.NextRace();
 			Data.CurrentRace.driverChanged += Visuals.DriversChanged;
+			Visuals.Initialize(Data.CurrentRace.Track);
 			Visuals.DrawTrack(Data.CurrentRace.Track);
 			Data.CurrentRace.Start();
 			for (; ; ) {

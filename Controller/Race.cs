@@ -26,7 +26,7 @@ namespace ControllerTest
             _random = new Random(DateTime.Now.Millisecond);
             PlaceParticipants();
             _timer = new Timer(500);
-			_timer.Elapsed += onTimedEvent;
+			_timer.Elapsed += OnTimedEvent;
         }
 
         public void Start() {
@@ -101,22 +101,23 @@ namespace ControllerTest
                 int nextSectionIndx = i + 1 == sections.Length ? 0 : i + 1;
                 if (_positions.ContainsKey(sections[i])) {
                     bool hasLeftParticipant = _positions[sections[i]].Left != null;
-                    _positions[sections[i]].DistanceRight += _positions[sections[i]].Right.Equiptment.Speed * _positions[sections[i]].Right.Equiptment.Performance;
                     
+                    _positions[sections[i]].DistanceRight += _positions[sections[i]].Right.Equiptment.Speed * _positions[sections[i]].Right.Equiptment.Performance;
                     if (hasLeftParticipant) {
                         _positions[sections[i]].DistanceLeft += _positions[sections[i]].Left.Equiptment.Speed * _positions[sections[i]].Left.Equiptment.Performance;
                     }
+
                     if (_positions[sections[i]].DistanceRight >= Section.length) {
                         moveRightParticipantToSection(sections[i], sections[nextSectionIndx]);
                     }
-                    if (hasLeftParticipant) {
+                    if (hasLeftParticipant && _positions[sections[i]].DistanceRight >= Section.length) {
                         moveRightParticipantToSection(sections[i], sections[nextSectionIndx]);
                     }
                 }
             }
 		}
 
-        public void onTimedEvent(object o, ElapsedEventArgs args) {
+        public void OnTimedEvent(object o, ElapsedEventArgs args) {
             MovePlayers();
             driverChanged.Invoke(this, new DriversChangedEventArgs(Data.CurrentRace.Track));
 		}
