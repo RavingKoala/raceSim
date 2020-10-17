@@ -8,60 +8,74 @@ using System.Text;
 
 namespace raceSim {
     public static class Visuals {
-		private static int x = 0, y = 0;
-		private static int direction = 0;
+		private static int x, y;
+		private static int direction;
 
         #region graphics
-        private readonly static string[] _horizontalFinnish = { "----", "  # ", "  # ", "----" };
-        private readonly static string[] _horizontal = { "----", "    ", "    ", "----" };
-		private static string[] _horizontalStart = { "----", "2]  ", "  1]", "----" };
-		private readonly static string[] _vertical = { "|  |", "|  |", "|  |", "|  |" };
-        private readonly static string[] _northToEast = { "|  \\", "\\   ", " \\  ", "  \\-" };
-        private readonly static string[] _eastToSouth = { "  /-", " /  ", "/   ", "|  /" };
-        private readonly static string[] _southToWest = { "-\\  ", "  \\ ", "   \\", "\\  |" };
-        private readonly static string[] _westToNorth = { "/  |", "   /", "  / ", "-/  " };
+        private readonly static string[] _horizontalFinnish = { "----", "  2#", "  1#", "----" };
+        private readonly static string[] _horizontal = { "----", " 2  ", "  1 ", "----" };
+		private readonly static string[] _horizontalStart = { "----", " 2] ", "  1]", "----" };
+		private readonly static string[] _vertical = { "|  |", "| 2|", "|1 |", "|  |" };
+        private readonly static string[] _northToEast = { "|  \\", "\\ 1 ", " \\2 ", "  \\-" };
+        private readonly static string[] _eastToSouth = { "  /-", " /2 ", "/ 1 ", "|  /" };
+        private readonly static string[] _southToWest = { "-\\  ", " 2\\ ", " 1 \\", "\\  |" };
+        private readonly static string[] _westToNorth = { "/  |", " 1 /", " 2/ ", "-/  " };
         #endregion
 
 
         public static void DrawTrack(Track track) {
+			x = 0;
+			y = 0;
+			direction = 0;
 			foreach (Section section in track.Sections) {
+				SectionData sectionData = Data.CurrentRace.GetSectionData(section);
+				// setup players
+				IParticipant participant1 = null;
+				IParticipant participant2 = null;
+				if (sectionData != null) {
+					participant1 = sectionData.Right;
+					if (sectionData.Left != null) {
+						participant2 = sectionData.Left;
+					}
+				}
+				// draw track by type
 				switch (section.SectionType) {
 					case SectionTypes.Straight:
 						if (direction == 0 || direction == 2) {
-							TrackToConsole(_vertical);
+							TrackToConsole(DrawParticipants(_vertical.ToArray(), participant1, participant2));
 						} else if (direction == 1 || direction == 3) {
-							TrackToConsole(_horizontal);
+							TrackToConsole(DrawParticipants(_horizontal.ToArray(), participant1, participant2));
 						}
 						break;
 					case SectionTypes.LeftCorner:
 						if (direction == 0) {
-							TrackToConsole(_southToWest);
+							TrackToConsole(DrawParticipants(_southToWest.ToArray(), participant1, participant2));
 						} else if (direction == 1) {
-							TrackToConsole(_westToNorth);
+							TrackToConsole(DrawParticipants(_westToNorth.ToArray(), participant1, participant2));
 						} else if (direction == 2) {
-							TrackToConsole(_northToEast);
+							TrackToConsole(DrawParticipants(_northToEast.ToArray(), participant1, participant2));
 						} else if (direction == 3) {
-							TrackToConsole(_eastToSouth);
+							TrackToConsole(DrawParticipants(_eastToSouth.ToArray(), participant1, participant2));
 						}
 						direction = direction == 0 ? 3 : direction - 1;
 						break;
 					case SectionTypes.RightCorner:
 						if (direction == 0) {
-							TrackToConsole(_eastToSouth);
+							TrackToConsole(DrawParticipants(_eastToSouth.ToArray(), participant1, participant2));
 						} else if (direction == 1) {
-							TrackToConsole(_southToWest);
+							TrackToConsole(DrawParticipants(_southToWest.ToArray(), participant1, participant2));
 						} else if (direction == 2) {
-							TrackToConsole(_westToNorth);
+							TrackToConsole(DrawParticipants(_westToNorth.ToArray(), participant1, participant2));
 						} else if (direction == 3) {
-							TrackToConsole(_northToEast);
+							TrackToConsole(DrawParticipants(_northToEast.ToArray(), participant1, participant2));
 						}
 						direction = (direction + 1) % 4;
 						break;
 					case SectionTypes.StartGrid:
-						TrackToConsole(DrawParticipants(_horizontalStart.ToArray(), Data.CurrentRace.GetSectionData(section).Right, Data.CurrentRace.GetSectionData(section).Left));
+							TrackToConsole(DrawParticipants(_horizontalStart.ToArray(), participant1, participant2));
 						break;
 					case SectionTypes.Finish:
-						TrackToConsole(_horizontalFinnish);
+							TrackToConsole(DrawParticipants(_horizontalFinnish.ToArray(), participant1, participant2));
 						break;
 					default:
 						break;
@@ -77,19 +91,20 @@ namespace raceSim {
 			}
 		}
 
-		private static void TrackToConsole(string[] track) {
-			for (int tempY = 0; tempY < track.Length; tempY++) {
-				for (int tempX = 0; tempX < track[tempY].Length; tempX++) {
+		private static void TrackToConsole(string[] trackSection) {
+			for (int tempY = 0; tempY < trackSection.Length; tempY++) {
+				for (int tempX = 0; tempX < trackSection[tempY].Length; tempX++) {
 					Console.SetCursorPosition(x + tempX, y + tempY);
-					Console.Write(track[tempY][tempX]);
+					Console.Write(trackSection[tempY][tempX]);
 				}
 			}
 		}
 
 		public static string[] DrawParticipants(string[] trackSection, IParticipant participant1, IParticipant participant2) {
-			string sParticipant2 = participant2 != null ? participant2.Name[0].ToString() + "]" : "  ";
-			trackSection[1] = trackSection[1].Replace("2]", sParticipant2);
-			trackSection[2] = trackSection[2].Replace("1", participant1.Name[0].ToString());
+			for (int i = 0; i < trackSection.Length; i++) {
+				trackSection[i] = trackSection[i].Replace("2", participant2 == null ? " " : participant2.Name[0].ToString());
+				trackSection[i] = trackSection[i].Replace("1", participant1 == null ? " " : participant1.Name[0].ToString());
+			}
 			return trackSection;
 		}
 

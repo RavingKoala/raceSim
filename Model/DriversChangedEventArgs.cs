@@ -6,5 +6,8 @@ namespace Model {
 	public class DriversChangedEventArgs : EventArgs {
 		public Track track { get; set; }
 
+		public DriversChangedEventArgs(Track track) {
+			this.track = track;
+		}
 	}
 }
