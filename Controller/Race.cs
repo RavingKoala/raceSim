@@ -15,6 +15,7 @@ namespace ControllerTest
         public DateTime StartTime { get; }
         private Random _random { get; }
         private Dictionary<Section, SectionData> _positions { get; set; }
+        private Dictionary<IParticipant, int> _laps { get; set; }
         private Timer _timer { get; set; }
 
 
@@ -24,6 +25,8 @@ namespace ControllerTest
             Track = track;
             Participants = participants;
             _random = new Random(DateTime.Now.Millisecond);
+            _positions = new Dictionary<Section, SectionData>();
+            _laps = new Dictionary<IParticipant, int>();
             PlaceParticipants();
             _timer = new Timer(500);
 			_timer.Elapsed += OnTimedEvent;
@@ -50,10 +53,10 @@ namespace ControllerTest
 			while (tempParticipants.Count > 0) {
                 int randInt = _random.Next(tempParticipants.Count-1);
                 participantQueue.Push(tempParticipants[randInt]);
+                _laps.Add(tempParticipants[randInt], 0);
                 tempParticipants.RemoveAt(randInt);
             }
 
-            Dictionary<Section, SectionData> tempPositions = new Dictionary<Section, SectionData>();
             Stack<Section> sectionQueue = new Stack<Section>();
             foreach (Section section in Track.Sections) {
                 if (section.SectionType == SectionTypes.StartGrid) {
@@ -63,12 +66,11 @@ namespace ControllerTest
 			while (sectionQueue.Count > 0) {
                 Section queuevalue = sectionQueue.Pop();
 				if (participantQueue.Count > 1) {
-                    tempPositions.Add(queuevalue, new SectionData(participantQueue.Pop(), 0, participantQueue.Pop(), 0));
+                    _positions.Add(queuevalue, new SectionData(participantQueue.Pop(), 0, participantQueue.Pop(), 0));
                 } else if (participantQueue.Count == 1) {
-                    tempPositions.Add(queuevalue, new SectionData(participantQueue.Pop(), 0));
+                    _positions.Add(queuevalue, new SectionData(participantQueue.Pop(), 0));
 				}
 			}
-            _positions = tempPositions;
         }
 
         private void moveRightParticipantToSection(Section fromSection, Section toSection) {
@@ -83,6 +85,18 @@ namespace ControllerTest
                     // section full, no catch up possible
                     _positions[fromSection].DistanceRight = Section.length - 1;
                     return;
+                }
+			}
+            if (fromSection.SectionType == SectionTypes.Finish){
+				if (_positions[toSection].Left == null) {
+					if (++_laps[_positions[toSection].Right] > 3) {
+                        _positions.Remove(toSection);
+                    }
+				} else {
+                    if (++_laps[_positions[toSection].Left] > 3) {
+                        _positions[toSection].Left = null;
+                        _positions[toSection].DistanceLeft = 0;
+                    }
                 }
 			}
 			if (_positions[fromSection].Left != null) {

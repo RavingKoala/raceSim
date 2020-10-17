@@ -13,13 +13,10 @@ namespace Model {
         }
 
         public Track NextTrack() {
-            Track returnValue;
-            try {
-                returnValue = Tracks.Dequeue();
-            } catch {
-                returnValue = null;
-            }
-            return returnValue;
+			if (Tracks.Count > 0) {
+                return Tracks.Dequeue();
+			}
+            return null;
         }
     }
 }
