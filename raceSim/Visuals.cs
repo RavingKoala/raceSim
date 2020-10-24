@@ -2,6 +2,7 @@
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -17,20 +18,18 @@ namespace raceSim {
         private readonly static string[] _horizontal = { "----", " 2  ", "  1 ", "----" };
 		private readonly static string[] _horizontalStart = { "----", " 2] ", "  1]", "----" };
 		private readonly static string[] _vertical = { "|  |", "| 2|", "|1 |", "|  |" };
-        private readonly static string[] _northToEast = { "|  \\", "\\ 1 ", " \\2 ", "  \\-" };
+        private readonly static string[] _northToEast = { "|  \\", "\\  1", " \\2 ", "  \\-" };
         private readonly static string[] _eastToSouth = { "  /-", " /2 ", "/ 1 ", "|  /" };
         private readonly static string[] _southToWest = { "-\\  ", " 2\\ ", " 1 \\", "\\  |" };
         private readonly static string[] _westToNorth = { "/  |", " 1 /", " 2/ ", "-/  " };
         #endregion
 
 		public static void Initialize(Track track) {
-			startx = 0; starty = 0;
 			PrepareDrawStartValue(track);
 		}
 
 		public static void PrepareDrawStartValue(Track track) {
-			x = 0;
-			y = 0;
+			startx = starty = x = y = 0;
 			direction = 1;
 			foreach (Section section in track.Sections) {
 				// draw track by type
@@ -70,14 +69,8 @@ namespace raceSim {
 			foreach (Section section in track.Sections) {
 				SectionData sectionData = Data.CurrentRace.GetSectionData(section);
 				// setup players
-				IParticipant participant1 = null;
-				IParticipant participant2 = null;
-				if (sectionData != null) {
-					participant1 = sectionData.Right;
-					if (sectionData.Left != null) {
-						participant2 = sectionData.Left;
-					}
-				}
+				IParticipant participant1 = sectionData?.Right;
+				IParticipant participant2 = sectionData?.Left;
 				// draw track by type
 				switch (section.SectionType) {
 					case SectionTypes.Straight:
@@ -141,14 +134,15 @@ namespace raceSim {
 		}
 
 		public static string[] DrawParticipants(string[] trackSection, IParticipant participant1, IParticipant participant2) {
+
 			for (int i = 0; i < trackSection.Length; i++) {
-				trackSection[i] = trackSection[i].Replace("2", participant2 == null ? " " : participant2.Name[0].ToString());
-				trackSection[i] = trackSection[i].Replace("1", participant1 == null ? " " : participant1.Name[0].ToString());
+				trackSection[i] = trackSection[i].Replace("2", participant2 == null ? " " : (participant2.Equiptment.IsBroken ? "■" : participant2.Name[0].ToString()));
+				trackSection[i] = trackSection[i].Replace("1", participant1 == null ? " " : (participant1.Equiptment.IsBroken ? "■" : participant1.Name[0].ToString()));
 			}
 			return trackSection;
 		}
 
-		public static void DriversChanged(object Sender, DriversChangedEventArgs args) {
+		public static void DriversChanged(DriversChangedEventArgs args) {
 			DrawTrack(args.track);
 		}
 	}
