@@ -1,13 +1,11 @@
-﻿using NUnit.Framework.Internal;
+﻿using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Model;
-using NUnit.Framework;
-using System.Collections.Generic;
 
-namespace ControllerTest
-{
+namespace ControllerTest{
     
     public class Model_Competition_NextTrackShould {
-        private TestFixture testFixture { get; }
+        private TestFixture _testFixture { get; }
         private Competition _Competition { get; set; }
 
         [SetUp]
@@ -39,7 +37,7 @@ namespace ControllerTest
             testCompetitie.Tracks.Enqueue(track);
 
             Track result;
-            result = testCompetitie.NextTrack();
+			_ = testCompetitie.NextTrack();
             result = testCompetitie.NextTrack();
             Assert.IsNull(result);
         }

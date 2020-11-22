@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ControllerTest", "ControllerTest\ControllerTest.csproj", "{F8D5A39D-27F8-450C-8389-89832407E09D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Controller", "Controller\Controller.csproj", "{7745B1F4-5CF0-410F-AD29-4DD04E548713}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Controller", "Controller\Controller.csproj", "{7745B1F4-5CF0-410F-AD29-4DD04E548713}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

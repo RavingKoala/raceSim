@@ -1,33 +1,45 @@
 ﻿using System;
 using System.Threading;
 using ControllerTest;
-using Model;
 
 namespace raceSim {
-    class Program {
-        static void Main(string[] args) {
+	class Program {
+		//TODO: perfect race.movePlayers() method
+		//TODO: make all variables either dutch or english
+		//TODO: make all private properties, fields
+		//TODO: fix known bug participant lapped has to skip the first finish line
+		static void Main(string[] args) {
 			Data.Initialize();
 			Data.NextRace();
-			Data.CurrentRace.driverChanged += Visuals.DriversChanged;
-			Data.CurrentRace.raceFinished += StartNextRace;
+			ConnectEvents();
+			Data.Competition.UpdateStats += Visuals.DrawStats;
 			Visuals.Initialize(Data.CurrentRace.Track);
 			Visuals.DrawTrack(Data.CurrentRace.Track);
 			Data.CurrentRace.Start();
-			for (; ; ) {
+			for (;;) {
 				Thread.Sleep(100);
 			}
 		}
 
-		static void StartNextRace(object Sender, EventArgs args) {
+		private static void StartNextRace(object Sender, EventArgs args) {
 			Data.CurrentRace.ClearEvents();
-			Console.Clear();
-			
+			Visuals.ClearTrack();
+
 			Data.NextRace();
-			Data.CurrentRace.driverChanged += Visuals.DriversChanged;
-			Data.CurrentRace.raceFinished += StartNextRace;
+			ConnectEvents();
 			Visuals.Initialize(Data.CurrentRace.Track);
 			Visuals.DrawTrack(Data.CurrentRace.Track);
 			Data.CurrentRace.Start();
 		}
-    }
+
+		private static void ConnectEvents() {
+			Data.CurrentRace.DriverChanged += Visuals.DriversChanged;
+			Data.CurrentRace.ParticipantFinished += Data.Competition.OnParticipantFinished;
+			Data.CurrentRace.ParticipantLapped += Data.Competition.OnParticipantLapped;
+			Data.CurrentRace.ParticipantPassed += Data.Competition.OnParticipantPassed;
+			Data.CurrentRace.ParticipantEquipmentBroke += Data.Competition.OnParticipantEquipmentBroke;
+			Data.CurrentRace.RaceFinished += StartNextRace;
+
+		}
+	}
 }
