@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Model {
+﻿namespace Model {
 	public delegate void ParticipantEquipmentBroke(ParticipantEquipmentBrokeEventArgs participantEquipmentBrokeEventArgs);
 	public class ParticipantEquipmentBrokeEventArgs {
 		public IParticipant Participant;

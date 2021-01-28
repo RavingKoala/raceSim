@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Model {
 	public class Stats<T> where T : IParticipantStats {
@@ -9,10 +8,18 @@ namespace Model {
 			item.Add(_list);
 		}
 
+		public List<IParticipantStats> GetList() {
+			return _list;
+		}
+
 		public string BesteSpeler() {
 			if (_list.Count > 0)
 				return _list[0].BesteSpeler(_list);
 			return null;
+		}
+
+		public void ResetList() {
+			_list = new List<IParticipantStats>();
 		}
 	}
 }

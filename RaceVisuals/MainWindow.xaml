@@ -1,0 +1,23 @@
+﻿<Window x:Class="RaceVisuals.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:RaceVisuals"
+		mc:Ignorable="d"
+		Title="MainWindow" Height="1080" Width="1920" WindowState="Maximized" >
+
+	<Grid>
+		<DockPanel>
+			<Label DockPanel.Dock="Top" Content="{Binding RaceName}" />
+			<Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
+				<MenuItem Header="Menu">
+					<Button Content="CompetitionScreen" Click="MenuItem_CompetitionScreen_Click"/>
+					<Button Content="RaceScreen" Click="MenuItem_RaceScreen_Click"/>
+					<Button Content="Exit" Click="MenuItem_Exit_Click"/>
+				</MenuItem>
+			</Menu>
+			<Image x:Name="Race" Stretch="Fill"/>
+		</DockPanel>
+	</Grid>
+</Window>

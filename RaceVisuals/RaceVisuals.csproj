@@ -1,0 +1,103 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Media\Background\SandImproved2.png" />
+    <None Remove="Media\Scooters\BrokenScooter.png" />
+    <None Remove="Media\Scooters\DefaultScooter.png" />
+    <None Remove="Media\Snakes\BlueSnake.png" />
+    <None Remove="Media\Snakes\CyanSnake.png" />
+    <None Remove="Media\Snakes\LimeSnake.png" />
+    <None Remove="Media\Snakes\OrangeSnake.png" />
+    <None Remove="Media\Snakes\PurpleSnake.png" />
+    <None Remove="Media\Snakes\RedSnake.png" />
+    <None Remove="Media\Snakes\VioletSnake.png" />
+    <None Remove="Media\Tracks\CornerNE.png" />
+    <None Remove="Media\Tracks\CornerNW.png" />
+    <None Remove="Media\Tracks\CornerSE.png" />
+    <None Remove="Media\Tracks\CornerSW.png" />
+    <None Remove="Media\Tracks\FinishH.png" />
+    <None Remove="Media\Tracks\finishlineH.png" />
+    <None Remove="Media\Tracks\StartH.png" />
+    <None Remove="Media\Tracks\StraightH.png" />
+    <None Remove="Media\Tracks\StraightV.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Background\SandImproved2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Scooters\BrokenScooter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Scooters\DefaultScooter.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Snakes\BlueSnake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Snakes\CyanSnake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Snakes\LimeSnake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Snakes\OrangeSnake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Snakes\PurpleSnake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Snakes\RedSnake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Snakes\VioletSnake.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Media\Tracks\CornerNE.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\CornerNW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\CornerSE.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\CornerSW.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\FinishH.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\finishlineH.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\StartH.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\StraightH.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Media\Tracks\StraightV.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Controller\Controller.csproj" />
+    <ProjectReference Include="..\Model\Model.csproj" />
+  </ItemGroup>
+
+</Project>

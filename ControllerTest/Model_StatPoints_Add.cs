@@ -36,13 +36,13 @@ namespace ControllerTest {
 			statPoints.Add(list2);
 			statPoints2.Add(list2);
 
-			Assert.AreEqual(list, list2);
+			Assert.AreNotEqual(list, list2);
 		}
 
 		[Test]
 		public void Add_TwoDistinct() {
 			Snake Participant = new Snake("Test", 0, new Scooter(), TeamColors.Blue);
-			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Green);
+			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Cyan);
 			StatPoints statPoints = new StatPoints(Participant, 1);
 			StatPoints statPoints2 = new StatPoints(Participant2, 2);
 

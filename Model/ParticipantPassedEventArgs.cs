@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Model {
+﻿namespace Model {
 	public delegate void ParticipantPassed(ParticipantPassedEventArgs participantPassedEventArgs);
 	public class ParticipantPassedEventArgs {
 		public IParticipant Participant { get; }

@@ -26,7 +26,7 @@ namespace ControllerTest {
 		[Test]
 		public void Add_DiffrentParticipants() {
 			Snake Participant = new Snake("Test", 0, new Scooter(), TeamColors.Blue);
-			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Green);
+			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Cyan);
 			StatLapTime statLapTime = new StatLapTime(Participant, new TimeSpan(0, 1, 0));
 			StatLapTime statLapTime2 = new StatLapTime(Participant2, new TimeSpan(0, 1, 0));
 

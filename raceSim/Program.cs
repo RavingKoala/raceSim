@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Controller;
+using System;
 using System.Threading;
-using ControllerTest;
 
 namespace raceSim {
 	class Program {
@@ -16,7 +16,7 @@ namespace raceSim {
 			Visuals.Initialize(Data.CurrentRace.Track);
 			Visuals.DrawTrack(Data.CurrentRace.Track);
 			Data.CurrentRace.Start();
-			for (;;) {
+			for (; ; ) {
 				Thread.Sleep(100);
 			}
 		}

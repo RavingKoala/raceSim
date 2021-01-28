@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace ControllerTest {
 	public class Model_ParticipantEquipmentBroke_Add {
-		
+
 		[SetUp]
-		public void Setup() {}
+		public void Setup() { }
 
 		[Test]
 		public void Add_ToEmptyList() {
@@ -37,7 +37,7 @@ namespace ControllerTest {
 		[Test]
 		public void Add_TwoDistinct() {
 			Snake Participant = new Snake("Test", 0, new Scooter(), TeamColors.Blue);
-			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Green);
+			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Cyan);
 			StatEquipmentBroke statEquipmentBroke = new StatEquipmentBroke(Participant);
 			StatEquipmentBroke statEquipmentBroke2 = new StatEquipmentBroke(Participant2);
 

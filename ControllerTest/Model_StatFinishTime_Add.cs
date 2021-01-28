@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ControllerTest {
 	public class Model_StatFinishTime_Add {
@@ -27,7 +26,7 @@ namespace ControllerTest {
 		[Test]
 		public void Add_DiffrentParticipants() {
 			Snake Participant = new Snake("Test", 0, new Scooter(), TeamColors.Blue);
-			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Green);
+			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Cyan);
 			StatFinishTime statFinishTime = new StatFinishTime(Participant, new TimeSpan(0, 1, 0));
 			StatFinishTime statFinishTime2 = new StatFinishTime(Participant2, new TimeSpan(0, 1, 0));
 

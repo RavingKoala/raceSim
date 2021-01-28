@@ -1,4 +1,4 @@
-﻿using ControllerTest;
+﻿using Controller;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ namespace raceSim {
 		private static int direction;
 		private static int statsYPosition;
 		private static Dictionary<string, int> statPositions = new Dictionary<string, int>();
+
 		#region graphics
 		private readonly static string[] _horizontalFinnish = { "----", "  2#", "  1#", "----" };
 		private readonly static string[] _horizontal = { "----", " 2  ", "  1 ", "----" };
@@ -46,18 +47,18 @@ namespace raceSim {
 				}
 				if (direction == 0) {
 					y -= 4;
-					if (y < starty) 
+					if (y < starty)
 						starty = y * -1;
 				}
 				if (direction == 1) {
 					x += 4;
-					if (x > maxx-4)
-						maxx = x+4;
+					if (x > maxx - 4)
+						maxx = x + 4;
 				}
 				if (direction == 2) {
 					y += 4;
-					if (y > maxy-4)
-						maxy = y+4;
+					if (y > maxy - 4)
+						maxy = y + 4;
 				}
 				if (direction == 3) {
 					x -= 4;
@@ -148,7 +149,7 @@ namespace raceSim {
 			}
 		}
 
-		public static string[] drawParticipants(string[] trackSection, IParticipant participant1, IParticipant participant2) {
+		private static string[] drawParticipants(string[] trackSection, IParticipant participant1, IParticipant participant2) {
 
 			for (int i = 0; i < trackSection.Length; i++) {
 				trackSection[i] = trackSection[i].Replace("2", participant2 == null ? " " : (participant2.Equiptment.IsBroken ? "■" : participant2.Name[0].ToString()));

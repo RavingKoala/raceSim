@@ -37,7 +37,7 @@ namespace ControllerTest {
 		[Test]
 		public void Add_TwoDistinct() {
 			Snake Participant = new Snake("Test", 0, new Scooter(), TeamColors.Blue);
-			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Green);
+			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Cyan);
 			StatPasses statPasses = new StatPasses(Participant);
 			StatPasses statPasses2 = new StatPasses(Participant2);
 

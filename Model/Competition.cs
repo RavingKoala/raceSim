@@ -10,7 +10,7 @@ namespace Model {
 		public Stats<StatFastestLap> FastestLap { get; }
 		public Stats<StatFinishTime> FinishTime { get; }
 		public Stats<StatLapTime> LapTime { get; }
-		public Stats<StatEquipmentBroke> EquipmentBroke{ get; }
+		public Stats<StatEquipmentBroke> EquipmentBroke { get; }
 		private int _participantsFinished { get; set; }
 		public static int Laps = 3;
 
@@ -40,7 +40,7 @@ namespace Model {
 			Points.Add(new StatPoints(participant, points));
 			_participantsFinished++;
 		}
-		
+
 		public void OnParticipantPassed(ParticipantPassedEventArgs participantPassedEventArgs) {
 			IParticipant participant = participantPassedEventArgs.Participant;
 			Passes.Add(new StatPasses(participant));

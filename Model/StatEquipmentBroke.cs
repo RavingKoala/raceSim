@@ -36,7 +36,7 @@ namespace Model {
 					returnName = name;
 				}
 			}
-			return returnName?? "";
+			return returnName ?? "";
 		}
 	}
 }

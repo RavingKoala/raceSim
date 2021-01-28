@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
-using System.Text;
-
-namespace Model {
+﻿namespace Model {
 	public delegate void UpdateStats(UpdateStatsEventArgs updateStatsEventArgs);
 	public class UpdateStatsEventArgs {
 		public string ParticipantName { get; set; }

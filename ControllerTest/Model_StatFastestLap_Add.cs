@@ -26,7 +26,7 @@ namespace ControllerTest {
 		[Test]
 		public void Add_DiffrentParticipants() {
 			Snake Participant = new Snake("Test", 0, new Scooter(), TeamColors.Blue);
-			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Green);
+			Snake Participant2 = new Snake("Test2", 0, new Scooter(), TeamColors.Cyan);
 			StatFastestLap statFastestLap = new StatFastestLap(Participant, new TimeSpan(0, 1, 0));
 			StatFastestLap statFastestLap2 = new StatFastestLap(Participant2, new TimeSpan(0, 1, 0));
 
@@ -50,7 +50,7 @@ namespace ControllerTest {
 			new StatFastestLap(Participant, new TimeSpan(0, 1, 0)).Add(list);
 			new StatFastestLap(Participant, new TimeSpan(0, 0, 30)).Add(list);
 
-			Assert.AreEqual(((StatFastestLap) list[0]).FastestLapTime, new TimeSpan(0, 1, 0));
+			Assert.AreEqual(((StatFastestLap)list[0]).FastestLapTime, new TimeSpan(0, 1, 0));
 		}
 
 		[Test]

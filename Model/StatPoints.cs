@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Model {
@@ -13,7 +12,16 @@ namespace Model {
 		}
 
 		public void Add(List<IParticipantStats> list) {
-			list.Add(this);
+			StatPoints tempClass = null;
+			foreach (IParticipantStats Stat in list) {
+				if (Stat.Name.Equals(this.Name)) {
+					tempClass = (StatPoints)Stat;
+					tempClass.Points += Points;
+				}
+			}
+			if (tempClass == null) {
+				list.Add(this);
+			}
 		}
 
 		public string BesteSpeler(List<IParticipantStats> list) {

@@ -1,7 +1,5 @@
 ﻿using Model;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 
 namespace ControllerTest {
 	public class Model_Stats_BesteSpeler {
